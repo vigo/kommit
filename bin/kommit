@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+set -e
+
+usage() {
+cat <<EOF
+usage: kommit [-m <msg> | -s | -h]
+
+    -m <msg>        append message
+    -s              show current message(s)
+    -h              print this message
+
+EOF
+}
+
+cgd=$(git rev-parse --git-dir 2>/dev/null)
+cpd=$(dirname $cgd 2>/dev/null)
+
+in_git_repo() {
+    if [[ ! -z $cgd && $cgd != "~" && $cgd != "." && $cgd != $HOME/.git ]]; then
+        return 0
+    fi
+    return 1
+}
+
+add_message() {
+    bullet="-"
+    if [[ $KOMMIT_BULLET ]]; then
+        bullet=$KOMMIT_BULLET
+    fi
+    echo "${bullet} ${1}" >> "${dbf}"
+}
+
+show_current_messages() {
+    wrap_at=70
+    if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then
+        wrap_at=$KOMMIT_WRAP_AT
+    fi
+    out=$(fold -w $wrap_at -s "${dbf}" | sed "s/^/    /")
+    echo -e "${out}"
+}
+
+if in_git_repo; then
+    dbf="${cpd}/.commit-message"
+    while getopts ":shm:" opt; do
+        case $opt in
+            m)
+                add_message "${OPTARG}" >&2
+                exit 0
+                ;;
+            s)
+                show_current_messages >&2
+                exit 0
+                ;;
+            h)
+                usage >&2
+                exit 0
+                ;;
+            \?)
+                echo "Invalid option: -$OPTARG" >&2
+                exit 1
+                ;;
+            :)
+                echo "Option -$OPTARG requires an argument." >&2
+                usage >&2
+                exit 1
+                ;;
+        esac
+    done
+    if [[ $opt == \? ]]; then
+        echo "Invalid usage..." >&2
+        usage >&2
+        exit 1
+    fi
+else
+    echo "This command works only under a git repo..."
+fi

@@ -17,6 +17,17 @@ and collect all the information somewhere else?
 
 @wip
 
+## Usage
+
+@wip
+
+### ENV
+
+`$KOMMIT_BULLET`: Default value is **-**
+
+`$KOMMIT_WRAP_AT`: Default value is **70**
+
+
 ## Change Log
 
 **2016-01-15**
