@@ -4,7 +4,7 @@ set -e
 
 usage() {
 cat <<EOF
-usage: kommit [-m <msg> | -s | -h]
+usage: kommit [-m <msg> | -s | -i | -r | -h]
 
     -m <msg>        append message
     -s              show current message(s)

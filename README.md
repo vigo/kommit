@@ -1,28 +1,57 @@
 # Kommit
 
 While we were looking at this [lovely project][01], we have seen
-some ehmmm downsides of it. Why not? let’s keep save the source code
+some, ehmmm, downsides of it. Why not? let’s keep safe the **source code**
 and collect all the information somewhere else?
+
 
 ## Idea
 
 * Commit often, Commit more!
-* A mini shell tool for storing message `kommit "Fixes a bug in XXX function"`
-* Store your commit information in to a hidden file `.git/kommit-message`
+* A mini shell tool for storing messages: `kommit "Fixes a bug in XXX function"`
+* Store your commit-extra information in to a hidden file `.git/kommit-message`
 * Append the `.git/kommit-message` to the original commit message in 
 `prepare-commit-msg` hook and delete `.git/kommit-message` file after commit.
 
-## Install: Kommit
-
-@wip
-
-## Install: Git Hook
-
-@wip
 
 ## Usage
 
-@wip
+    usage: kommit [-m <msg> | -s | -i | -r | -h]
+
+        -m <msg>        append message
+        -s              show current message(s)
+        -i              install kommit hook to .git/hooks/prepare-commit-msg
+        -r              remove kommit hook, delete .git/hooks/prepare-commit-msg
+        -h              print this message
+
+
+## Sample Output
+
+        # Your commit title
+        
+        - Your note...
+        - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
+        enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+        nisi ut aliquip ex ea commodo consequat.
+
+
+## Install: Kommit
+
+You can download or get it via `curl`. Go to your desired `bin/` folder or
+go somewhere which is in the `$PATH`:
+
+```bash
+cd ~/bin/          # example bin/ folder
+curl -O https://raw.githubusercontent.com/bilgi-webteam/kommit/master/kommit
+chmod +x kommit
+```
+
+
+## Install & Remove: Git Hook
+
+Super easy, `kommit -i` installs hook, `kommit -r` removes hook.
+
 
 ### Environment Variables
 
@@ -35,12 +64,20 @@ KOMMIT_BULLET="*" kommit -m "Hello World"   # or,
 export KOMMIT_BULLET="*"                    # define it in your .bashrc
 ```
 
-: Default value is **-**
+Also, default value for wrap text is: **70** you can change it via;
 
-: Default value is **70**
+```bash
+KOMMIT_WRAP_AT=60 kommit -m "Hello World"   # or, 
+
+export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
+```
 
 
 ## Change Log
+
+**2016-01-16**
+
+* Release v0.1.0
 
 **2016-01-15**
 
