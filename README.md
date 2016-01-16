@@ -8,12 +8,15 @@ and collect all the information somewhere else?
 
 * Commit often, Commit more!
 * A mini shell tool for storing message `kommit "Fixes a bug in XXX function"`
-* Store your commit information in to a hidden file `.commit-message` (?)
-* Append the `.commit-message` to the original commit message in 
-`prepare-commit-msg` hook.
-* Delete `.commit-message` file after successfull commit on `post-commit` hook.
+* Store your commit information in to a hidden file `.git/kommit-message`
+* Append the `.git/kommit-message` to the original commit message in 
+`prepare-commit-msg` hook and delete `.git/kommit-message` file after commit.
 
-## Install
+## Install: Kommit
+
+@wip
+
+## Install: Git Hook
 
 @wip
 
@@ -21,11 +24,20 @@ and collect all the information somewhere else?
 
 @wip
 
-### ENV
+### Environment Variables
 
-`$KOMMIT_BULLET`: Default value is **-**
+Kommit checks `$KOMMIT_BULLET` and `$KOMMIT_WRAP_AT` variables. Default 
+bullet style for message is `-` You can change this via;
 
-`$KOMMIT_WRAP_AT`: Default value is **70**
+```bash
+KOMMIT_BULLET="*" kommit -m "Hello World"   # or, 
+
+export KOMMIT_BULLET="*"                    # define it in your .bashrc
+```
+
+: Default value is **-**
+
+: Default value is **70**
 
 
 ## Change Log

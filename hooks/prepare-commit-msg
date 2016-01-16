@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-msg=$(pwd)/.commit-message
+cgd=$(git rev-parse --git-dir 2>/dev/null)
+msg="${cgd}/kommit-message"
+
 if [[ -f $msg ]]; then
     wrap_at=70
     if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then

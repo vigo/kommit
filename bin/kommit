@@ -14,7 +14,7 @@ EOF
 }
 
 cgd=$(git rev-parse --git-dir 2>/dev/null)
-cpd=$(dirname $cgd 2>/dev/null)
+dbf="${cgd}/kommit-message"
 
 in_git_repo() {
     if [[ ! -z $cgd && $cgd != "~" && $cgd != "." && $cgd != $HOME/.git ]]; then
@@ -41,7 +41,6 @@ show_current_messages() {
 }
 
 if in_git_repo; then
-    dbf="${cpd}/.commit-message"
     while getopts ":shm:" opt; do
         case $opt in
             m)
