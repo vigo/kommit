@@ -9,6 +9,7 @@ usage: kommit [-m <msg> | -s | -h]
     -m <msg>        append message
     -s              show current message(s)
     -i              install kommit hook to .git/hooks/prepare-commit-msg
+    -r              remove kommit hook, delete .git/hooks/prepare-commit-msg
     -h              print this message
 
 EOF
@@ -34,12 +35,32 @@ add_message() {
 
 install_hook() {
     if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
-        echo "var"
-        return 1
+        read -p "Hook is already installed. Would you like to re-install ? (y/N)" users_option
+        case $users_option in
+            [yY])
+                echo "Ok, over-writing hook..."
+                ;;
+            [nN])
+                echo "Canceled..."
+                return 1
+                ;;
+            *)
+                echo "Ok, over-writing hook..."
+                ;;
+        esac
     fi
     create_hook_file &&
     echo "Hook installed succesfully..."
     return 0
+}
+
+remove_hook() {
+    if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
+        rm -f $current_git_directory/hooks/prepare-commit-msg &&
+        echo "Hook removed succesfully..."
+    else
+        echo "Hook is not installed ?"
+    fi
 }
 
 create_hook_file() {
@@ -66,16 +87,20 @@ chmod +x $current_git_directory/hooks/prepare-commit-msg
 }
 
 show_current_messages() {
-    wrap_at=70
-    if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then
-        wrap_at=$KOMMIT_WRAP_AT
+    if [[ -e $kommit_message_file ]]; then
+        wrap_at=70
+        if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then
+            wrap_at=$KOMMIT_WRAP_AT
+        fi
+        out=$(fold -w $wrap_at -s "${kommit_message_file}" | sed "s/^/    /")
+        echo -e "${out}"
+    else
+        echo "You have no messages..."
     fi
-    out=$(fold -w $wrap_at -s "${kommit_message_file}" | sed "s/^/    /")
-    echo -e "${out}"
 }
 
 if in_git_repo; then
-    while getopts ":ishm:" opt; do
+    while getopts ":irshm:" opt; do
         case $opt in
             m)
                 add_message "${OPTARG}" >&2
@@ -83,6 +108,10 @@ if in_git_repo; then
                 ;;
             i)
                 install_hook >&2
+                exit 0
+                ;;
+            r)
+                remove_hook >&2
                 exit 0
                 ;;
             s)
