@@ -8,16 +8,17 @@ usage: kommit [-m <msg> | -s | -h]
 
     -m <msg>        append message
     -s              show current message(s)
+    -i              install kommit hook to .git/hooks/prepare-commit-msg
     -h              print this message
 
 EOF
 }
 
-cgd=$(git rev-parse --git-dir 2>/dev/null)
-dbf="${cgd}/kommit-message"
+current_git_directory=$(git rev-parse --git-dir 2>/dev/null)
+kommit_message_file="${current_git_directory}/kommit-message"
 
 in_git_repo() {
-    if [[ ! -z $cgd && $cgd != "~" && $cgd != "." && $cgd != $HOME/.git ]]; then
+    if [[ ! -z $current_git_directory && $current_git_directory != "~" && $current_git_directory != "." && $current_git_directory != $HOME/.git ]]; then
         return 0
     fi
     return 1
@@ -28,7 +29,40 @@ add_message() {
     if [[ $KOMMIT_BULLET ]]; then
         bullet=$KOMMIT_BULLET
     fi
-    echo "${bullet} ${1}" >> "${dbf}"
+    echo "${bullet} ${1}" >> "${kommit_message_file}"
+}
+
+install_hook() {
+    if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
+        echo "var"
+        return 1
+    fi
+    create_hook_file &&
+    echo "Hook installed succesfully..."
+    return 0
+}
+
+create_hook_file() {
+(
+cat <<'EOF'
+#!/usr/bin/env bash
+
+current_git_directory=$(git rev-parse --git-dir 2>/dev/null)
+msg="${current_git_directory}/kommit-message"
+
+if [[ -f $msg ]]; then
+    wrap_at=70
+    if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then
+        wrap_at=$KOMMIT_WRAP_AT
+    fi
+    out=$(fold -w $wrap_at -s "${msg}" | sed "s/^/    /")
+    echo -e "\n\n$out\n\n" | cat - "${1}" > tmp_msg && 
+        mv tmp_msg "${1}" &&
+        rm -f "${msg}"
+fi
+EOF
+) > $current_git_directory/hooks/prepare-commit-msg &&
+chmod +x $current_git_directory/hooks/prepare-commit-msg
 }
 
 show_current_messages() {
@@ -36,15 +70,19 @@ show_current_messages() {
     if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then
         wrap_at=$KOMMIT_WRAP_AT
     fi
-    out=$(fold -w $wrap_at -s "${dbf}" | sed "s/^/    /")
+    out=$(fold -w $wrap_at -s "${kommit_message_file}" | sed "s/^/    /")
     echo -e "${out}"
 }
 
 if in_git_repo; then
-    while getopts ":shm:" opt; do
+    while getopts ":ishm:" opt; do
         case $opt in
             m)
                 add_message "${OPTARG}" >&2
+                exit 0
+                ;;
+            i)
+                install_hook >&2
                 exit 0
                 ;;
             s)

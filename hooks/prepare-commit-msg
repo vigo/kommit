@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-cgd=$(git rev-parse --git-dir 2>/dev/null)
-msg="${cgd}/kommit-message"
+current_git_directory=$(git rev-parse --git-dir 2>/dev/null)
+msg="${current_git_directory}/kommit-message"
 
 if [[ -f $msg ]]; then
     wrap_at=70
