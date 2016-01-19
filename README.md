@@ -2,7 +2,7 @@
 
 ### Create more detailed commit messages without committing!
 
-[![asciicast](https://asciinema.org/a/du2mii2i5p8oyfdbsgvgx7ubj.png)](https://asciinema.org/a/du2mii2i5p8oyfdbsgvgx7ubj)
+[![asciicast](https://asciinema.org/a/34075.png)](https://asciinema.org/a/34075)
 
 While we were looking at this [lovely project][01], we have seen
 some, ehmmm, downsides of it. Why not? let’s keep safe the **source code**
