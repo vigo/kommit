@@ -20,14 +20,21 @@ and collect all the information somewhere else?
 
 ## Usage
 
-    usage: kommit [-m <msg> | -c | -s | -i | -r | -h]
+    usage: kommit [-m <msg> | -c | -e | -s | -i | -r | -h]
 
         -m <msg>        append message
         -c              check if hook installed ?
+        -e              edit messages
         -s              show current message(s)
         -i              install kommit hook to .git/hooks/prepare-commit-msg
         -r              remove kommit hook, delete .git/hooks/prepare-commit-msg
         -h              print this message
+
+Basic usage is shown below:
+
+* `kommit -m "Message"` : Append new message.
+* `kommit -s` : Show current messages
+* `kommit -e` : Edit messages. This uses `$EDITOR` environment variable.
 
 
 ## Sample Output
@@ -53,7 +60,7 @@ chmod +x kommit
 ```
 
 
-## Install & Remove or Check: Git Hook
+## Git Hook: Install & Remove or Check
 
 Super easy;
 
@@ -83,6 +90,11 @@ export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 
 
 ## Change Log
+
+**2016-01-19**
+
+* New feature; edit messages! `kommit -e`
+* New feature; check hook `kommit -c`
 
 **2016-01-16**
 

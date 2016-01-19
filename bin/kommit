@@ -4,10 +4,11 @@ set -e
 
 usage() {
 cat <<EOF
-usage: kommit [-m <msg> | -c | -s | -i | -r | -h]
+usage: kommit [-m <msg> | -c | -e | -s | -i | -r | -h]
 
     -m <msg>        append message
     -c              check if hook installed ?
+    -e              edit messages
     -s              show current message(s)
     -i              install kommit hook to .git/hooks/prepare-commit-msg
     -r              remove kommit hook, delete .git/hooks/prepare-commit-msg
@@ -32,6 +33,10 @@ add_message() {
         bullet=$KOMMIT_BULLET
     fi
     echo "${bullet} ${1}" >> "${kommit_message_file}"
+}
+
+edit_messages() {
+    $EDITOR "${kommit_message_file}"
 }
 
 install_hook() {
@@ -109,8 +114,12 @@ show_current_messages() {
 }
 
 if in_git_repo; then
-    while getopts ":icrshm:" opt; do
+    while getopts ":iecrshm:" opt; do
         case $opt in
+            e)
+                edit_messages >&2
+                exit 0
+                ;;
             m)
                 add_message "${OPTARG}" >&2
                 exit 0
