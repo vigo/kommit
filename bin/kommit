@@ -4,9 +4,10 @@ set -e
 
 usage() {
 cat <<EOF
-usage: kommit [-m <msg> | -s | -i | -r | -h]
+usage: kommit [-m <msg> | -c | -s | -i | -r | -h]
 
     -m <msg>        append message
+    -c              check if hook installed ?
     -s              show current message(s)
     -i              install kommit hook to .git/hooks/prepare-commit-msg
     -r              remove kommit hook, delete .git/hooks/prepare-commit-msg
@@ -63,6 +64,14 @@ remove_hook() {
     fi
 }
 
+is_hook_installed() {
+    if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
+        echo "Yes, hook installed..."
+    else
+        echo "Nope, hook is not installed..."
+    fi
+}
+
 create_hook_file() {
 (
 cat <<'EOF'
@@ -88,7 +97,7 @@ chmod +x $current_git_directory/hooks/prepare-commit-msg
 
 show_current_messages() {
     if [[ -e $kommit_message_file ]]; then
-        wrap_at=70
+        wrap_at=72
         if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then
             wrap_at=$KOMMIT_WRAP_AT
         fi
@@ -100,10 +109,14 @@ show_current_messages() {
 }
 
 if in_git_repo; then
-    while getopts ":irshm:" opt; do
+    while getopts ":icrshm:" opt; do
         case $opt in
             m)
                 add_message "${OPTARG}" >&2
+                exit 0
+                ;;
+            c)
+                is_hook_installed >&2
                 exit 0
                 ;;
             i)

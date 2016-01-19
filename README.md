@@ -16,9 +16,10 @@ and collect all the information somewhere else?
 
 ## Usage
 
-    usage: kommit [-m <msg> | -s | -i | -r | -h]
+    usage: kommit [-m <msg> | -c | -s | -i | -r | -h]
 
         -m <msg>        append message
+        -c              check if hook installed ?
         -s              show current message(s)
         -i              install kommit hook to .git/hooks/prepare-commit-msg
         -r              remove kommit hook, delete .git/hooks/prepare-commit-msg
@@ -48,9 +49,13 @@ chmod +x kommit
 ```
 
 
-## Install & Remove: Git Hook
+## Install & Remove or Check: Git Hook
 
-Super easy, `kommit -i` installs hook, `kommit -r` removes hook.
+Super easy;
+
+* `kommit -i` installs hook,
+* `kommit -r` removes hook,
+* `kommit -c` checks if the hook is installed to your repo!
 
 
 ### Environment Variables
@@ -64,7 +69,7 @@ KOMMIT_BULLET="*" kommit -m "Hello World"   # or,
 export KOMMIT_BULLET="*"                    # define it in your .bashrc
 ```
 
-Also, default value for wrap text is: **70** you can change it via;
+Also, default value for wrap text is: **72** you can change it via;
 
 ```bash
 KOMMIT_WRAP_AT=60 kommit -m "Hello World"   # or, 
