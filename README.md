@@ -12,7 +12,7 @@ and collect all the information somewhere else?
 ## Idea
 
 * Commit often, Commit more!
-* A mini shell tool for storing messages: `kommit "Fixes a bug in XXX function"`
+* A mini shell tool for storing messages: `kommit -m "Fixes a bug in XXX function"`
 * Store your commit-extra information in to a hidden file `.git/kommit-message`
 * Append the `.git/kommit-message` to the original commit message in 
 `prepare-commit-msg` hook and delete `.git/kommit-message` file after commit.
