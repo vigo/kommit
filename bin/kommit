@@ -68,7 +68,7 @@ is_hook_installed() {
     if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
         echo "Yes, hook installed..."
     else
-        echo "Nope, hook is not installed..."
+        echo "Nope, hook is not installed... \`kommit -i\` is your friend..."
     fi
 }
 
