@@ -48,7 +48,7 @@ go somewhere which is in the `$PATH`:
 
 ```bash
 cd ~/bin/          # example bin/ folder
-curl -O https://raw.githubusercontent.com/bilgi-webteam/kommit/master/kommit
+curl -O https://raw.githubusercontent.com/bilgi-webteam/kommit/master/bin/kommit
 chmod +x kommit
 ```
 
