@@ -88,8 +88,18 @@ KOMMIT_WRAP_AT=60 kommit -m "Hello World"   # or,
 export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 ```
 
+## IDE Integrations
+
+* [TextMate1][textmate1-bundle]
+
 
 ## Change Log
+
+**2016-01-20**
+
+* MIT license added.
+* Contributers list added.
+* IDE integration packages list added.
 
 **2016-01-19**
 
@@ -114,4 +124,22 @@ Feel free to send your PR’s!
 4. `push` your `branch` (`git push origin my-features`)
 5. Than create a new **Pull Request**!
 
+
+## Contributers
+
+* [Uğur "vigo" Özyılmazel][02] - Creator, maintainer
+* [Ekin Ertaç][03] - Contributer, maintainer
+
+Other contributers can be found [here][04].
+
+## License
+
+This project licensed under MIT.
+
+
 [01]: https://github.com/thebearjew/commit-comments
+[02]: https://github.com/vigo
+[03]: https://github.com/ekinertac
+[04]: https://github.com/bilgi-webteam/kommit/graphs/contributors
+
+[textmate1-bundle]: https://github.com/vigo/textmate1-kommit
