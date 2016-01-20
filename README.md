@@ -91,6 +91,11 @@ export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 ## IDE Integrations
 
 * [TextMate1][textmate1-bundle]
+* TextMate2
+* Atom
+* Sublime
+* Vim
+* Emcas
 
 
 ## Change Log
