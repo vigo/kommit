@@ -14,7 +14,7 @@ and collect all the information somewhere else?
 * Commit often, Commit more!
 * A mini shell tool for storing messages: `kommit -m "Fixes a bug in XXX function"`
 * Store your commit-extra information in to a hidden file `.git/kommit-message`
-* Append the `.git/kommit-message` to the original commit message in 
+* Append the `.git/kommit-message` to the original commit message in
 `prepare-commit-msg` hook and delete `.git/kommit-message` file after commit.
 
 
@@ -40,11 +40,11 @@ Basic usage is shown below:
 ## Sample Output
 
         # Your commit title
-        
+
         - Your note...
         - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-        enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+        enim ad minim veniam, quis nostrud exercitation ullamco laboris
         nisi ut aliquip ex ea commodo consequat.
 
 
@@ -68,14 +68,21 @@ Super easy;
 * `kommit -r` removes hook,
 * `kommit -c` checks if the hook is installed to your repo!
 
+### Alternative Installation and Usage
+Rename the script like `mv kommit git-kommit` and place it one of your folders present in your `$PATH`
+
+* `git kommit -i` : Installs hooks,
+* `git kommit -m "Message"` : Append new message.
+* `git kommit -s` : Show current messages
+* `git kommit -e` : Edit messages. This uses `$EDITOR` environment variable.
 
 ### Environment Variables
 
-Kommit checks `$KOMMIT_BULLET` and `$KOMMIT_WRAP_AT` variables. Default 
+Kommit checks `$KOMMIT_BULLET` and `$KOMMIT_WRAP_AT` variables. Default
 bullet style for message is `-` You can change this via;
 
 ```bash
-KOMMIT_BULLET="*" kommit -m "Hello World"   # or, 
+KOMMIT_BULLET="*" kommit -m "Hello World"   # or,
 
 export KOMMIT_BULLET="*"                    # define it in your .bashrc
 ```
@@ -83,7 +90,7 @@ export KOMMIT_BULLET="*"                    # define it in your .bashrc
 Also, default value for wrap text is: **72** you can change it via;
 
 ```bash
-KOMMIT_WRAP_AT=60 kommit -m "Hello World"   # or, 
+KOMMIT_WRAP_AT=60 kommit -m "Hello World"   # or,
 
 export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 ```
