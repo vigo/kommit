@@ -29,6 +29,10 @@ in_git_repo() {
 }
 
 add_message() {
+    # it is possible to forget installing hook!
+    if [[ ! -e $current_git_directory/hooks/prepare-commit-msg ]]; then
+        create_hook_file
+    fi
     bullet="-"
     if [[ $KOMMIT_BULLET ]]; then
         bullet=$KOMMIT_BULLET
