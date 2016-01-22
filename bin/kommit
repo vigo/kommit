@@ -118,9 +118,32 @@ show_current_messages() {
     fi
 }
 
+bash_completion(){
+    bin_name=$(basename $0)
+    if [[ $bin_name == "git-kommit" ]]; then
+        chars=$(echo ${CMD_OPTIONS//\:/} | fold -w 1)
+        opts=""
+        for c in ${chars[@]}; do
+          opts="${opts} -${c}"
+        done
+        echo '# add this to your bash-completion or bashrc'
+        echo '_git_kommit(){'
+        echo -e "\t__gitcomp \"${opts/ /}\""
+        echo '}'
+        echo '# add this to your bash-completion or bashrc'
+    else
+        echo "You need to change this files name to: git-kommit"
+    fi
+}
+
+CMD_OPTIONS=":ibecrsht:m:"
 if in_git_repo; then
-    while getopts ":iecrsht:m:" opt; do
+    while getopts $CMD_OPTIONS opt; do
         case $opt in
+            b)
+                bash_completion >&2
+                exit 0
+                ;;
             e)
                 edit_messages >&2
                 exit 0
@@ -170,6 +193,4 @@ if in_git_repo; then
         usage >&2
         exit 1
     fi
-else
-    echo "This command works only under a git repo..."
 fi

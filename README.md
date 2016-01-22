@@ -73,10 +73,19 @@ Super easy;
 ### Alternative Installation and Usage
 Rename the script like `mv kommit git-kommit` and place it one of your folders present in your `$PATH`
 
-* `git kommit -i` : Installs hooks,
+* `git kommit -i` : Installs hook.
+* `git kommit -r` : Removes hooks.
+* `git kommit -c` : Checks if the hooks is installed.
+* `git kommit -b` : Shows bash completion snippet
 * `git kommit -m "Message"` : Append new message.
-* `git kommit -s` : Show current messages
+* `git kommit -t "Message"` : Append new message with timestamp.
+* `git kommit -s` : Show current messages.
 * `git kommit -e` : Edit messages. This uses `$EDITOR` environment variable.
+
+If you use it in this way (*git-kommit*), you can have the bash completion
+feature. Don’t forget, `git-kommit` way only works under **git** folder.
+To have the bash completion snippet; use `git kommit -b` and grab the code
+and add it to your shell environment.
 
 ### Environment Variables
 
@@ -114,6 +123,7 @@ export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 * Added: `kommit -t` feature
 * Added: You don’t need to install hook, it installs it self in the first
 message addition.
+* Added: Bash completion snippet
 
 **2016-01-20**
 
