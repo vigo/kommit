@@ -109,6 +109,12 @@ export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 
 ## Change Log
 
+**2016-01-22**
+
+* Added: `kommit -t` feature
+* Added: You don’t need to install hook, it installs it self in the first
+message addition.
+
 **2016-01-20**
 
 * MIT license added.
