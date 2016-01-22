@@ -70,6 +70,13 @@ Super easy;
 * `kommit -r` removes hook,
 * `kommit -c` checks if the hook is installed to your repo!
 
+### Alternative Installation and Usage
+Rename the script like `mv kommit git-kommit` and place it one of your folders present in your `$PATH`
+
+* `git kommit -i` : Installs hooks,
+* `git kommit -m "Message"` : Append new message.
+* `git kommit -s` : Show current messages
+* `git kommit -e` : Edit messages. This uses `$EDITOR` environment variable.
 
 ### Environment Variables
 
