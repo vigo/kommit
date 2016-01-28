@@ -18,7 +18,7 @@ usage: kommit [-m <msg> | -t <msg> | -c | -e | -s | -i | -r | -h]
 EOF
 }
 
-current_git_directory=$(git rev-parse --git-dir 2>/dev/null)
+current_git_directory=$(git rev-parse --git-dir 2>/dev/null || echo "")
 kommit_message_file="${current_git_directory}/kommit-message"
 
 in_git_repo() {
@@ -193,4 +193,6 @@ if in_git_repo; then
         usage >&2
         exit 1
     fi
+else
+  echo "Not a git repository." 1>&2
 fi
