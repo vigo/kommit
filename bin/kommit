@@ -61,14 +61,14 @@ install_hook() {
         esac
     fi
     create_hook_file &&
-    echo "Hook installed succesfully..."
+    echo "Hook installed successfully..."
     return 0
 }
 
 remove_hook() {
     if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
         rm -f $current_git_directory/hooks/prepare-commit-msg &&
-        echo "Hook removed succesfully..."
+        echo "Hook removed successfully..."
     else
         echo "Hook is not installed ?"
     fi
