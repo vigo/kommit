@@ -4,7 +4,7 @@ set -e
 
 usage() {
 cat <<EOF
-usage: kommit [-m <msg> | -t <msg> | -c | -e | -s | -i | -r | -h]
+usage: git-kommit [-m <msg> | -t <msg> | -c | -e | -s | -i | -r | -h]
 
     -m <msg>        append message
     -t <msg>        append message with timestamp
@@ -78,7 +78,7 @@ is_hook_installed() {
     if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
         echo "Yes, hook installed..."
     else
-        echo "Nope, hook is not installed... \`kommit -i\` is your friend..."
+        echo "Nope, hook is not installed... \`git kommit -i\` is your friend..."
     fi
 }
 
@@ -119,21 +119,16 @@ show_current_messages() {
 }
 
 bash_completion(){
-    bin_name=$(basename $0)
-    if [[ $bin_name == "git-kommit" ]]; then
-        chars=$(echo ${CMD_OPTIONS//\:/} | fold -w 1)
-        opts=""
-        for c in ${chars[@]}; do
-          opts="${opts} -${c}"
-        done
-        echo '# add this to your bash-completion or bashrc'
-        echo '_git_kommit(){'
-        echo -e "\t__gitcomp \"${opts/ /}\""
-        echo '}'
-        echo '# add this to your bash-completion or bashrc'
-    else
-        echo "You need to change this files name to: git-kommit"
-    fi
+    chars=$(echo ${CMD_OPTIONS//\:/} | fold -w 1)
+    opts=""
+    for c in ${chars[@]}; do
+      opts="${opts} -${c}"
+    done
+    echo '# add this to your bash-completion or bashrc'
+    echo '_git_kommit(){'
+    echo -e "\t__gitcomp \"${opts/ /}\""
+    echo '}'
+    echo '# add this to your bash-completion or bashrc'
 }
 
 CMD_OPTIONS=":ibecrsht:m:"

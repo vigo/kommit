@@ -12,7 +12,7 @@ and collect all the information somewhere else?
 ## Idea
 
 * Commit often, Commit more!
-* A mini shell tool for storing messages: `kommit -m "Fixes a bug in XXX function"`
+* A mini shell tool for storing messages: `git kommit -m "Fixes a bug in XXX function"`
 * Store your commit-extra information in to a hidden file `.git/kommit-message`
 * Append the `.git/kommit-message` to the original commit message in
 `prepare-commit-msg` hook and delete `.git/kommit-message` file after commit.
@@ -20,7 +20,7 @@ and collect all the information somewhere else?
 
 ## Usage
 
-    usage: kommit [-m <msg> | -t <msg> | -c | -e | -s | -i | -r | -h]
+    usage: git-kommit [-m <msg> | -t <msg> | -c | -e | -s | -i | -r | -h]
 
         -m <msg>        append message
         -t <msg>        append message with timestamp
@@ -33,10 +33,10 @@ and collect all the information somewhere else?
 
 Basic usage is shown below:
 
-* `kommit -m "Message"` : Append new message.
-* `kommit -t "Message"` : Append new message with timestamp.
-* `kommit -s` : Show current messages
-* `kommit -e` : Edit messages. This uses `$EDITOR` environment variable.
+* `git kommit -m "Message"` : Append new message.
+* `git kommit -t "Message"` : Append new message with timestamp.
+* `git kommit -s` : Show current messages
+* `git kommit -e` : Edit messages. This uses `$EDITOR` environment variable.
 
 
 ## Sample Output
@@ -57,21 +57,14 @@ go somewhere which is in the `$PATH`:
 
 ```bash
 cd ~/bin/          # example bin/ folder
-curl -O https://raw.githubusercontent.com/bilgi-webteam/kommit/master/bin/kommit
-chmod +x kommit
+curl -O https://raw.githubusercontent.com/bilgi-webteam/kommit/master/bin/git-kommit
+chmod +x git-kommit
 ```
 
 
-## Git Hook: Install & Remove or Check
+## Usage
 
 Super easy;
-
-* `kommit -i` installs hook,
-* `kommit -r` removes hook,
-* `kommit -c` checks if the hook is installed to your repo!
-
-### Alternative Installation and Usage
-Rename the script like `mv kommit git-kommit` and place it one of your folders present in your `$PATH`
 
 * `git kommit -i` : Installs hook.
 * `git kommit -r` : Removes hooks.
@@ -82,8 +75,7 @@ Rename the script like `mv kommit git-kommit` and place it one of your folders p
 * `git kommit -s` : Show current messages.
 * `git kommit -e` : Edit messages. This uses `$EDITOR` environment variable.
 
-If you use it in this way (*git-kommit*), you can have the bash completion
-feature. Don’t forget, `git-kommit` way only works under **git** folder.
+Don’t forget, `git-kommit` way only works under **git** folder.
 To have the bash completion snippet; use `git kommit -b` and grab the code
 and add it to your shell environment.
 
@@ -93,7 +85,7 @@ Kommit checks `$KOMMIT_BULLET` and `$KOMMIT_WRAP_AT` variables. Default
 bullet style for message is `-` You can change this via;
 
 ```bash
-KOMMIT_BULLET="*" kommit -m "Hello World"   # or,
+KOMMIT_BULLET="*" git kommit -m "Hello World"   # or,
 
 export KOMMIT_BULLET="*"                    # define it in your .bashrc
 ```
@@ -101,7 +93,7 @@ export KOMMIT_BULLET="*"                    # define it in your .bashrc
 Also, default value for wrap text is: **72** you can change it via;
 
 ```bash
-KOMMIT_WRAP_AT=60 kommit -m "Hello World"   # or,
+KOMMIT_WRAP_AT=60 git kommit -m "Hello World"   # or,
 
 export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 ```
@@ -117,6 +109,10 @@ export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 
 
 ## Change Log
+
+**2016-02-10**
+
+* Switched to `git-kommit` filename, full integration with `git`
 
 **2016-01-22**
 
