@@ -115,6 +115,10 @@ export KOMMIT_WRAP_AT=60                    # define it in your .bashrc
 
 
 ## Change Log
+**2016-03-05**
+
+* You don’t need to pop the editor. `git commit -m "message"` will also
+insert the kommit’s messages. [PR8][pr8]
 
 **2016-02-10**
 
@@ -176,3 +180,4 @@ This project licensed under MIT.
 
 [textmate1-bundle]: https://github.com/vigo/textmate1-kommit
 [homebrew]: http://brew.sh
+[pr8]: https://github.com/bilgi-webteam/kommit/pull/8
