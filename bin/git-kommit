@@ -96,7 +96,7 @@ if [[ -f $msg ]]; then
         wrap_at=$KOMMIT_WRAP_AT
     fi
     out=$(fold -w $wrap_at -s "${msg}" | sed "s/^/    /")
-    echo -e "\n\n$out\n\n" | cat - "${1}" > tmp_msg &&
+    echo -e "\n\n$out\n\n" | cat "${1}" - > tmp_msg &&
         mv tmp_msg "${1}" &&
         rm -f "${msg}"
 fi
