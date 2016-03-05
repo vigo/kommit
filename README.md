@@ -52,6 +52,12 @@ Basic usage is shown below:
 
 ## Install: Kommit
 
+OS X Users can install via [Homebrew][homebrew].
+
+```bash
+brew install kommit
+```
+
 You can download or get it via `curl`. Go to your desired `bin/` folder or
 go somewhere which is in the `$PATH`:
 
@@ -169,3 +175,4 @@ This project licensed under MIT.
 [04]: https://github.com/bilgi-webteam/kommit/graphs/contributors
 
 [textmate1-bundle]: https://github.com/vigo/textmate1-kommit
+[homebrew]: http://brew.sh
