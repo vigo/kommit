@@ -170,7 +170,7 @@ Other contributers can be found [here][04].
 
 ## License
 
-This project licensed under MIT.
+This project is licensed under MIT.
 
 
 [01]: https://github.com/thebearjew/commit-comments
