@@ -22,7 +22,7 @@ current_git_directory=$(git rev-parse --git-dir 2>/dev/null)
 kommit_message_file="${current_git_directory}/kommit-message"
 
 in_git_repo() {
-    if [[ ! -z $current_git_directory && $current_git_directory != "~" && $current_git_directory != "." && $current_git_directory != $HOME/.git ]]; then
+    if [[ -n "${current_git_directory}" && "${current_git_directory}" != "~" && $current_git_directory != "." && "${current_git_directory}" != "${HOME}/.git" ]]; then
         return 0
     fi
     return 1
@@ -46,7 +46,7 @@ edit_messages() {
 
 install_hook() {
     if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
-        read -p "Hook is already installed. Would you like to re-install ? (y/N)" users_option
+        read -r -p "Hook is already installed. Would you like to re-install ? (y/N)" users_option
         case $users_option in
             [yY])
                 echo "Ok, over-writing hook..."
@@ -67,7 +67,7 @@ install_hook() {
 
 remove_hook() {
     if [[ -e $current_git_directory/hooks/prepare-commit-msg ]]; then
-        rm -f $current_git_directory/hooks/prepare-commit-msg &&
+        rm -f "${current_git_directory}/hooks/prepare-commit-msg" &&
         echo "Hook removed successfully..."
     else
         echo "Hook is not installed ?"
@@ -101,8 +101,8 @@ if [[ -f $msg ]]; then
         rm -f "${msg}"
 fi
 EOF
-) > $current_git_directory/hooks/prepare-commit-msg &&
-chmod +x $current_git_directory/hooks/prepare-commit-msg
+) > "${current_git_directory}/hooks/prepare-commit-msg" &&
+chmod +x "${current_git_directory}/hooks/prepare-commit-msg"
 }
 
 show_current_messages() {
@@ -111,7 +111,7 @@ show_current_messages() {
         if [[ $KOMMIT_WRAP_AT && $KOMMIT_WRAP_AT =~ ^-?[0-9]+$ ]]; then
             wrap_at=$KOMMIT_WRAP_AT
         fi
-        out=$(fold -w $wrap_at -s "${kommit_message_file}" | sed "s/^/    /")
+        out=$(fold -w "${wrap_at}" -s "${kommit_message_file}" | sed "s/^/    /")
         echo -e "${out}"
     else
         echo "You have no messages..."
@@ -119,9 +119,9 @@ show_current_messages() {
 }
 
 bash_completion(){
-    chars=$(echo ${CMD_OPTIONS//\:/} | fold -w 1)
+    chars=$(echo "${CMD_OPTIONS//\:/}" | fold -w 1)
     opts=""
-    for c in ${chars[@]}; do
+    for c in "${chars[@]}"; do
       opts="${opts} -${c}"
     done
     echo '# add this to your bash-completion or bashrc'

@@ -1,3 +1,6 @@
+![Version](https://img.shields.io/badge/version-1.1.0-orange.svg)
+![Shellcheck](https://github.com/vigo/kommit/actions/workflows/shellcheck.yml/badge.svg)
+
 # Kommit
 
 ### Create more detailed commit messages without committing!
